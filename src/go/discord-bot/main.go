@@ -13,7 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-const prefix string = "!krug"
+const prefix string = "!bow"
 
 func main() {
 	godotenv.Load("../../../.env")
