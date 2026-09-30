@@ -1,0 +1,26 @@
+services:
+  # Servicio de Python (Image Generator)
+  image-generator:
+    build:
+      context: ./src/python/image-generator
+      dockerfile: Dockerfile
+    container_name: image_generator_app
+    ports:
+      - "3636:3636"
+    env_file:
+      - .env
+    restart: always
+
+  # Servicio de Go (Discord Bot)
+  discord-bot:
+    build:
+      context: ./src/go/discord-bot
+      dockerfile: Dockerfile
+    container_name: discord_bot_app
+    environment:
+      - IMAGE_GENERATOR_URL=http://image-generator:3636/
+    depends_on:
+      - image-generator
+    env_file:
+      - .env
+    restart: always
